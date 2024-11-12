@@ -4,7 +4,7 @@
 protocol Offer {
     
     /**
-     Determines whether an offer could apply to a given list of products. It should execute faster than the discoutFrom method
+     Determines whether an offer could apply to a given list of products. It should execute faster than the discount method
      
      - Parameter purchases: An array of ShoppingItem objects
      - Returns:
@@ -13,13 +13,12 @@ protocol Offer {
     func applies(to purchases: [Product]) -> Bool
     
     /**
-     Determines the discount applying the offer will have, given a list of products*
+     Determines the discount that the applied offer will have, given a list of products*
      
      - Parameter purchases: An array of ShoppingItem objects
      - Returns: the value of the discount
      */
     func discount(for purchases: [Product]) ->Int
-    
     /**
      The name of the offer, for example, "Dine if for 2 for £10"
      */
@@ -89,6 +88,8 @@ protocol CappedOffer : SimpleOffer {
     var productQuantity : Int {get set}
 }
 
+
+
 /**
  Represents a type of offer where if you buy a product in one category, you're eligible for a free product in another category, for example, buy a newspaper and get a free bottle of water
  The most expensive items from the discountable products should be included for the deal(s) (i.e. the offer is to the benefit of the customer)
@@ -100,6 +101,7 @@ protocol TriggerOffer : Offer {
     /** The ids of the products that can be discounted if a qualifying product is bought */
     var discountableProductIds : Set<Int> {get set}
 }
+
 
 /**
  Represents a type of offer where one item from a number of categories can be purchased, for a set price, for example the M&S 'Dine in for 2 for £10' deal where customers can choose a drink, side, main and dessert, each from a range of products and pay no more than £10
@@ -126,16 +128,37 @@ protocol ComplexSelectionOffer : Offer {
 
 /**
  Represents a type of offer, where a certain number of items must be bought from one set of products, and a certain number of items from a different set of products will be free
- E.g. Buy any 5 packs of meat and recieve any two free bottles of table sauce, such as ketchup or mayo
- Most expensive items free
+ E.g. Buy any 5 packs of meat and recieve any two free bottles of table sauce, such as ketchup or mayo.  Most expensive items free
  */
 protocol TriggerMultiBuy : TriggerOffer, MultiBuyOffer {
     
 }
-
-
-
-//todo: Offer for specific quantities of trigger products and get specific quantities of free products, e.g. buy any television, any blu-ray player and 2 HDMI cables, recieve a free soundbar and 5 blue-ray discs of your choice
-
-
-
+/**
+ Represents a type of offer where if you buy a product in one category, you're eligible for a percentage based discount on product in another category depending on the trigger product, for example, buy a newspaper and get a free (100% discounted) bottle of water
+ The most expensive items from the discountable products should be included for the deal(s) (i.e. the offer is to the benefit of the customer)
+ The discount will be worked out on a per-product basis, e.g. if the customer buys 2 products costing 99p each with 50% off, the discount should be 98p, (i.e. 49p + 49p)
+ */
+protocol TriggerDiscountedByPercentageOffer :  TriggerOffer {
+    
+    /**
+     Represents the percentage discount applied, on a per-product basis, e.g. 0.5 is 50%
+     */
+    
+    var discountPercentage : Double {get set}
+    
+}
+/**
+ Represents a type of offer where a certain number of items in the offer must be bought, and this will enable a percentage discount to be applied (for example, Buy 2 get 30% off).  The discount should be applied to all discountable products if the quantity required for the offer is purchased.  Example: For a 20% off 3 packs of Veggies: the discount would be 20% off the price of 3 packs of vegetables.  E.g. with the following items: 1 Coke, 1Cokezero, 1 Water,  7 Mushrooms, the discount will be 20% off the first 3 packs, and second 3 packs of Mushrooms only.
+ 
+ */
+protocol MultiBuyByPercentageOffer :   Offer {
+    /** The number of products that must be paid for*/
+    var quantityPaid : Int {get set}
+    /**
+    *Represents the percentage discount applied, on a per-product basis, e.g. 0.5 is 50%*
+     - important: The value must be between 0 and 1
+     - important: The discount must be calculated on a per-product basis
+     */
+    var discountPercentage : Double {get set}
+   
+}

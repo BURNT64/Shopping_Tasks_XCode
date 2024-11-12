@@ -1,15 +1,15 @@
-///Free bottle of 💧 (product ID 410) with every 📰 purchased (product ID 565)
-class FreeWaterWithNewspaperOffer : TriggerDiscountedByPercentageOffer {
-    
+///Get 20% off on 1 pint Milk with every 2 pint Milk purchased
+class MilkOffer : TriggerDiscountedByPercentageOffer {
     var name: String
     var triggerProductIds : Set<Int>
     var discountableProductIds : Set<Int>
     var discountPercentage : Double
+    
     init() {
-        name = "Free Water with The Times"
-        triggerProductIds = [565] //newspaper
-        discountableProductIds = [410] //water
-        discountPercentage = 1.0
+        name = "20% off on 1 pint Milk"
+        triggerProductIds = [138] //2 pint Milk
+        discountableProductIds = [137] //1 pint Milk
+        discountPercentage  = 0.2
     }
     
     //Functions commented out using command /, use the same commend to uncomment.
@@ -42,3 +42,4 @@ class FreeWaterWithNewspaperOffer : TriggerDiscountedByPercentageOffer {
 //        return totalDiscount
 //    }
 }
+

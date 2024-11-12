@@ -1,59 +1,5 @@
 import XCTest
-
-class C_MultibuyTests: XCTestCase {
-    var offer : BuyOneGetOneFreeOffer!
-    
-    override func setUp() {
-        super.setUp()
-        offer = BuyOneGetOneFreeOffer()
-    }
-    
-    override func tearDown() {
-        offer = nil
-        super.tearDown()
-    }
-
-    func bogofApplies(){
-
-        XCTAssertFalse(offer.applies(to: [P.coke]),"Offer doesn't apply to just one item")
-        XCTAssertFalse(offer.applies(to: [P.🍾,P.🍾]),"Offer doesn't apply to wrong products")
-        XCTAssertFalse(offer.applies(to: [P.🍾,P.coke]),"Offer needs two valid items to apply")
-        XCTAssertTrue(offer.applies(to: [P.coke,P.dietcoke]),"Offer applies to two different items, both on offer")
-        XCTAssertTrue(offer.applies(to: [P.coke,P.dietcoke,P.dietcoke]),"Offer still applies to odd number of items")
-        XCTAssertTrue(offer.applies(to: [P.🍾,P.🍾,P.chicken, P.coke, P.coke]),"Cokes not at start of list")
-    }
-    
-    func testBOGOFApplicable(){
-        bogofApplies()
-    }
-    
-    func testBOGOFEvenNumberOfProducts(){
-        bogofApplies()
-        var list = [P.coke, P.dietcoke, P.dietcoke, P.cokezero ]
-        XCTAssertEqual(offer.discount(for:list), 320, "BOGOF correct on even number of products")
-        
-        list = [P.cokezero, P.coke, P.dietcoke, P.dietcoke]
-        XCTAssertEqual(offer.discount(for:list), 320, "Reordered products")
-        
-        list = [P.🍾,P.🍾,P.chicken,P.cokezero, P.coke, P.dietcoke, P.dietcoke]
-        XCTAssertEqual(offer.discount(for:list), 320, "Extra invalid items at start")
-        
-        list.append(contentsOf: [P.coke, P.dietcoke, P.dietcoke, P.cokezero])
-        XCTAssertEqual(offer.discount(for:list), 720, "BOGOF correct with twice the products")
-    }
-    
-    func testBOGOFOddNumberOfProducts(){
-        bogofApplies()
-        var list = [P.coke, P.dietcoke, P.dietcoke]
-        XCTAssertEqual(offer.discount(for:list), 200, "BOGOF correct on odd number of products")
-        list = [P.coke, P.cokezero, P.coke]
-        XCTAssertEqual(offer.discount(for:list), 200, "BOGOF correct on odd number of products, one cheaper")
-    }
-
-}
-
-class D_MultiBuyFurtherTests : XCTestCase {
-    
+class C_MultiBuyTests : XCTestCase {
     var offer : BuyTwoGetThirdFreeOffer!
     
     override func setUp() {
@@ -68,49 +14,50 @@ class D_MultiBuyFurtherTests : XCTestCase {
         super.tearDown()
     }
     
-    // MARK: Multibuy offer (Deodorants)
-    func deodorantApplies(){
+    // MARK: Multibuy offer (Wine)
+    func wineApplies(){
         let offer = BuyTwoGetThirdFreeOffer()
-        var list = [P.dove]
-        XCTAssertFalse(offer.applies(to: list),"not enough products, not enough deodorants")
+        var list = [P.🍷]
+        XCTAssertFalse(offer.applies(to: list),"not enough products, not enough wine")
         
-        list.append(P.dove)
-        XCTAssertFalse(offer.applies(to: list),"not enough products, not enough deodorants")
+        list.append(P.💧)
+        XCTAssertFalse(offer.applies(to: list),"not enough products, not enough wine")
         
-        list.append(P.milk)
-        XCTAssertFalse(offer.applies(to: list),"enough products, not enough deodorants")
+        list.append(P.🍾)
+        XCTAssertFalse(offer.applies(to: list),"enough products, not enough wine")
         
-        list.append(P.lynx) //lynx (total of 3)
-        XCTAssertTrue(offer.applies(to: list),"enough deodorants")
+        list.append(P.🍷) //wine (total of 3)
+        XCTAssertTrue(offer.applies(to: list),"enough wine")
     }
     
     func testBuyTwoGetThirdFreeApplies(){
-        deodorantApplies()
+       wineApplies()
     }
     
     func testBuyTwoGetThirdFree4Items(){
-        deodorantApplies()
-        var list = [P.dove, P.dove, P.lynx, P.lynx] //(Lynx 319, Dove 219)
-        XCTAssertEqual(offer.discount(for:list),219,"One of each price discounted");
+       wineApplies()
+        var list = [P.🍷, P.🍷, P.🍾, P.🍾] //(Sauvignon Blanc 75cl 499, Cabernet Sauvignon 75cl 299)
+        XCTAssertEqual(offer.discount(for:list),299,"discount is value of every third item bought when the list is sorted in price order");
         
-        list = [P.lynx, P.lynx, P.dove, P.dove] //reordered
-        XCTAssertEqual(offer.discount(for:list),219,"above, reordered");
+        list = [ P.🍾, P.🍾, P.🍷, P.🍷] //reordered
+        XCTAssertEqual(offer.discount(for:list),299,"above, reordered");
     }
     
+    
     func testBuyTwoGetThirdFree5Items(){
-        deodorantApplies()
-        var list = [P.lynx, P.lynx, P.dove, P.dove, P.dove]
-        XCTAssertEqual(offer.discount(for:list),219,"Buy two get third free correct with 5 items");
-        list = [P.lynx, P.lynx, P.lynx, P.dove, P.dove]
-        XCTAssertEqual(offer.discount(for:list),319,"Buy two get third free correct with 5 items");
+        wineApplies()
+        var list = [P.🍾, P.🍾, P.🍷, P.🍷,P.🍷 ]
+        XCTAssertEqual(offer.discount(for:list),299,"Buy two get third free correct with 5 items");
+        list = [P.🍾, P.🍾, P.🍾,P.🍷, P.🍷]
+        XCTAssertEqual(offer.discount(for:list),499,"Buy two get third free correct with 5 items");
     }
     
     func testBuyTwoGetThirdFree6Items(){
-        deodorantApplies()
-        var list = [P.dove, P.dove, P.dove, P.lynx, P.lynx, P.lynx]
-        XCTAssertEqual(offer.discount(for:list),538,"One of each price discounted");
-        list = [P.dove, P.dove, P.dove, P.dove, P.lynx, P.lynx]
-        XCTAssertEqual(offer.discount(for:list),438,"Two cheaper items discounted");
+        wineApplies()
+        var list = [P.🍷, P.🍷,P.🍷,P.🍾, P.🍾, P.🍾]
+        XCTAssertEqual(offer.discount(for:list),798,"One of each price discounted");
+        list = [P.🍾, P.🍾, P.🍷,P.🍷, P.🍷,P.🍷]
+        XCTAssertEqual(offer.discount(for:list),598,"Two cheaper items discounted");
     }
  
 }

@@ -7,7 +7,7 @@ class Helper{
     static let shared = Helper()
     
     private init(){
-        let bundle = Bundle(for: A_ShoppingTests.self)
+        let bundle = Bundle(for: A_TransactionTests.self)
         let fileLocation = bundle.path(forResource: "Products", ofType: "plist")
         
         let productArray = NSArray(contentsOfFile: fileLocation!)
@@ -53,22 +53,15 @@ class Helper{
 }
 
 class P {
-    //drinks
-   // static let coke = Helper.shared.productById(401)!
-    //static let dietcoke = Helper.shared.productById(402)!
-    //static let cokezero = Helper.shared.productById(403)!
-    //static let 🍾 = Helper.shared.productById(901)!
-//    static let 🍷 = Helper.shared.productById(902)!
-    //    static let 💧 = Helper.shared.productById(410)!
-    
+    static let 🍪 = Product("Cookies", price: 490, id: 2007)
     static let coke = Product("1.75l Coca-Cola",price: 200,id: 401)
     static let dietcoke = Product("2l Diet Coke",price: 200,id: 402)
     static let cokezero = Product("500ml Coke Zero", price: 120, id: 403)
     static let 🍾 = Product("Sauvignon Blanc 75cl", price: 499, id: 901)
-    static let 🍷 = Product("Cabernet Sauvinon 75cl", price: 299, id: 902)
+    static let 🍷 = Product("Cabernet Sauvignon 75cl", price: 299, id: 902)
     static let 💧 = Product("Evian Mineral Water 500ml",price: 129,id: 410)
-    
-    static let milk = Helper.shared.productById(137)!
+    static let onePintMilk = Helper.shared.productById(137)!
+    static let twoPintMilk = Helper.shared.productById(138)!
     
     //meats
     static let chicken = Helper.shared.productById(303)!
@@ -108,6 +101,12 @@ class P {
     static let flatGarlicBread = Helper.shared.productById(2005)!
     static let potatoWedges = Helper.shared.productById(2003)!
     static let doughBalls = Helper.shared.productById(2006)!
-    static let cookies = Helper.shared.productById(2007)!
+   
+    //table sauce
+    static let mayo = Helper.shared.productById(54322)!
+    static let ketchup = Helper.shared.productById(54321)!
 }
+
+
+
 

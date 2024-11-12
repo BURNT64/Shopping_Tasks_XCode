@@ -4,6 +4,22 @@
 <array>
 	<dict>
 		<key>Name</key>
+		<string>Ketchup</string>
+		<key>Price</key>
+		<integer>149</integer>
+		<key>ProdId</key>
+		<integer>54321</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Mayo</string>
+		<key>Price</key>
+		<integer>99</integer>
+		<key>ProdId</key>
+		<integer>54322</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
 		<string>Bread</string>
 		<key>Price</key>
 		<integer>100</integer>
@@ -68,7 +84,7 @@
 	</dict>
 	<dict>
 		<key>Name</key>
-		<string>Cabernet Sauvinon 75cl</string>
+		<string>Cabernet Sauvignon 75cl</string>
 		<key>Price</key>
 		<integer>299</integer>
 		<key>ProdId</key>
@@ -278,7 +294,7 @@
 		<key>Name</key>
 		<string>Cookies</string>
 		<key>Price</key>
-		<integer>349</integer>
+		<integer>490</integer>
 		<key>ProdId</key>
 		<integer>2007</integer>
 	</dict>

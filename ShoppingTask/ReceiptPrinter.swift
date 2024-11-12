@@ -30,7 +30,7 @@ class ReceiptPrinter {
         var receiptPrintOut = String();
         
         receiptPrintOut += "**********************************\n"
-        receiptPrintOut += "***********Your Reciept***********\n\n"
+        receiptPrintOut += "***********Your Receipt***********\n\n"
         
         //all products
         for item in transaction.items {

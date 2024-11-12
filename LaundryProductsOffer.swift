@@ -1,26 +1,23 @@
-///Buy a certain number if items from of each group and pay £20.99 (e.g. 2 pizzas, 2 sides, 1 garlic bread and 1 dessert)
-class WinterWarmerOffer : ComplexSelectionOffer {
+///Buy a certain number if items from of each group and pay £20.99 (e.g. 2 detergents, 1 softener and 1 conditioner)
+class LaundryProductsOffer : ComplexSelectionOffer {
     
     var productIdGroupsAndQuantities: Array<(items: Set<Int>, quantity: Int)>
     var maxPrice: Int
     var name: String
     
     init(){
-        let pizzas = [2002, 2004, 2001]
-        let sides = [2006, 2003]
-        let garlicBreads = [2005, 1011]
-        let desserts = [2007]
+        let detergents = [617, 618]
+        let softeners = [620, 621]
+        let conditioner = [619]
         
-        let pizzaRule = (items: Set(pizzas), quantity: 2)
-        let sidesRule = (items: Set(sides), quantity: 2)
-        let garlicBreadRule = (items: Set(garlicBreads), quantity: 1)
-        let dessertRule = (items: Set(desserts), quantity: 1)
+        let detergentRule = (items: Set(detergents), quantity: 2)
+        let softenerRule = (items: Set(softeners), quantity: 1)
+        let conditionerRule = (items: Set(conditioner), quantity: 1)
         
-        name = "Winter Warmer"
-        productIdGroupsAndQuantities = [pizzaRule, sidesRule, garlicBreadRule, dessertRule]
+        name = "Laundry Products Offer"
+        productIdGroupsAndQuantities = [detergentRule, softenerRule, conditionerRule]
         maxPrice = 2099
     }
-    
     //Functions commented out using command /, use the same commend to uncomment.
     //These functions operate under the extention ComplexSelectionOffer in ProtocolExtentions.
     

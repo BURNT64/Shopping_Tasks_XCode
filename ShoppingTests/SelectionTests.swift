@@ -1,6 +1,6 @@
 import XCTest
 
-class H_SelectionTests: XCTestCase {
+class W_SelectionTests: XCTestCase {
 
     var offer : DineInFor2For10PoundsOffer!
     

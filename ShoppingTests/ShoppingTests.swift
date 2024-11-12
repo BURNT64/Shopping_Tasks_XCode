@@ -1,6 +1,6 @@
 import XCTest
 
-class A_ShoppingTests: XCTestCase {
+class A_TransactionTests: XCTestCase {
     
     var transaction : Transaction!
     
@@ -31,7 +31,6 @@ class A_ShoppingTests: XCTestCase {
 
 }
 
-
 class X_ReceiptTests : XCTestCase {
     
     var transaction : Transaction!
@@ -49,7 +48,7 @@ class X_ReceiptTests : XCTestCase {
     
     func testReceipt(){
         
-       transaction.items = [P.🍾, P.🍷, P.coke, P.dietcoke, P.dietcoke, P.dietcoke, P.smokedBacon, P.unsmokedBacon, P.chicken, P.mince, P.porkChops, P.📰, P.💧, P.📰, P.💧, P.💧, P.lynx, P.lynx, P.lynx, P.dove, P.dove, P.dove]
+        transaction.items = [P.🍪, P.🍾, P.🍷, P.🍷, P.coke, P.dietcoke, P.dietcoke, P.dietcoke,P.cokezero, P.cokezero,P.veggiePizza, P.mushrooms, P.twoPintMilk,P.onePintMilk,P.lynx, P.lynx, P.lynx]
         
         let receiptPrinter = ReceiptPrinter(transaction: transaction)
         let receipt = receiptPrinter.print().trimmingCharacters(in: .whitespacesAndNewlines)
@@ -63,9 +62,5 @@ class X_ReceiptTests : XCTestCase {
         catch{
             print("file read error")
         }
-        
-        
     }
-    
-    
 }
